@@ -1,6 +1,13 @@
+import Cookies from "js-cookie";
+
 export const isAuthenticated = () => {
-  if (typeof window !== "undefined") {
-    return !!localStorage.getItem("user"); // Returns true if user exists
-  }
-  return false;
+  return Cookies.get("isLoggedIn") === "true";
+};
+
+export const setAuthCookie = () => {
+  Cookies.set("isLoggedIn", "true", { expires: 1 }); // 1-day expiry
+};
+
+export const removeAuthCookie = () => {
+  Cookies.remove("isLoggedIn");
 };
