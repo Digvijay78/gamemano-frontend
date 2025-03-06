@@ -1,25 +1,34 @@
-"use client"; // Add this at the top
+"use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import CryptoJS from "crypto-js";
+
+const SECRET_KEY = process.env.NEXT_PUBLIC_SECRET_KEY || "default_secret_key";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    setIsClient(typeof window !== "undefined");
-  }, []);
+  const generateAccessToken = (username, password) => {
+    return CryptoJS.AES.encrypt(`${username}_${password}`, SECRET_KEY).toString();
+  };
 
   const handleSignup = () => {
-    if (isClient) {
-      localStorage.setItem("username", username);
-      localStorage.setItem("password", password);
-      alert("Signup successful! Please log in.");
-      router.push("/login");
+    if (!username || !password) {
+      alert("Please enter both username and password.");
+      return;
     }
+
+    const accessToken = generateAccessToken(username, password);
+    
+    // Store encrypted credentials
+    localStorage.setItem("accessToken", accessToken);
+    Cookies.set("accessToken", accessToken, { expires: 7, secure: true });
+
+    router.push("/product");
   };
 
   return (

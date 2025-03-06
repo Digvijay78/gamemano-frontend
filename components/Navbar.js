@@ -1,17 +1,28 @@
 "use client";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
-import { AuthContext } from "@/context/AuthContext";
+import Cookies from "js-cookie";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
-  const { isAuthenticated, logout } = useContext(AuthContext);
   const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check authentication on client side after component mounts
+  useEffect(() => {
+    const accessToken = Cookies.get("accessToken");
+    setIsAuthenticated(!!accessToken);
+  }, []);
 
   const handleLogout = () => {
-    logout();
-    alert("Logged out successfully!");
-    router.push("/");
+    Cookies.remove("accessToken");
+    setIsAuthenticated(false); // Update state immediately
+    router.push("/login");
+  };
+
+  const handleLogin = () => {
+    router.push("/login");
   };
 
   return (
@@ -23,8 +34,8 @@ export default function Navbar() {
           <button onClick={handleLogout} className="bg-red-500 px-4 py-2 rounded">Logout</button>
         ) : (
           <>
-            <Link href="/login" className="mr-4">Login</Link>
-            <Link href="/signup" className="mr-4">Signup</Link>
+            <button onClick={handleLogin} className="mr-4 bg-green-500 px-4 py-2 rounded">Login</button>
+            <Link href="/signup" className="bg-yellow-500 px-4 py-2 rounded">Signup</Link>
           </>
         )}
       </div>
