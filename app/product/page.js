@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import CategoryDropdown from "@/components/AllProducts/CategoryDropdown";
 import Products from "@/components/AllProducts/Products";
+import { getProducts } from "@/services/productService"; // Import API call function
 
 export default function Product() {
   const searchParams = useSearchParams();
@@ -13,25 +14,19 @@ export default function Product() {
   // Get category from URL on page load
   useEffect(() => {
     const categoryFromUrl = searchParams.get("category");
-    setSelectedCategory(categoryFromUrl || ""); // Ensure state is updated
+    setSelectedCategory(categoryFromUrl || "");
   }, [searchParams]);
 
   // Fetch products when category changes
   useEffect(() => {
-    const categoryFromUrl = searchParams.get("category"); // Get latest category
-
     const fetchProducts = async () => {
       setLoading(true);
       setProducts([]); // Clear previous products before fetching
 
       try {
-        let url = categoryFromUrl
-          ? `https://dummyjson.com/products/category/${categoryFromUrl}`
-          : "https://dummyjson.com/products"; // Use correct API
-
-        const res = await fetch(url);
-        const data = await res.json();
-        setProducts(data.products || []);
+        const category = searchParams.get("category") || "";
+        const data = await getProducts(category); // Use API call function
+        setProducts(data || []); // Ensure products are always an array
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -40,9 +35,7 @@ export default function Product() {
     };
 
     fetchProducts();
-  }, [searchParams]); // Depend on searchParams instead of selectedCategory
-
-  console.log("products", products);
+  }, [searchParams]); // Depend on searchParams to trigger re-fetch
 
   return (
     <div className="max-w-4xl mx-auto p-4">
