@@ -15,5 +15,5 @@ export function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/product-details/:path*", "/product"], // Supports dynamic routes like /product-details/1
+  matcher: ["/product-details/:path*"], // Supports dynamic routes like /product-details/1
 };

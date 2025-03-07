@@ -1,6 +1,9 @@
 import Link from "next/link";
 
 export default function ProductCard({ product }) {
+
+  
+  
   return (
     <div className="border p-4 rounded-lg shadow-md bg-white">
       <img
