@@ -28,7 +28,7 @@ export default function Products({ products }) {
             {currentProducts.map((product) => (
               <div
                 key={product.id}
-                className="bg-white p-5 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+                className="p-5 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-[#FEF3BC]"
               >
                 {/* Product Image */}
                 <div className="relative">
@@ -37,7 +37,7 @@ export default function Products({ products }) {
                     alt={product.title}
                     className="w-full h-48 object-cover rounded-lg"
                   />
-                  <span className="absolute top-2 left-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-md">
+                  <span className="absolute top-2 left-2 bg-[#3D352A] text-white text-[10px] px-2 py-1 rounded-full">
                     {product.brand}
                   </span>
                 </div>
@@ -45,20 +45,20 @@ export default function Products({ products }) {
                 {/* Product Info */}
                 <div className="mt-4">
                   <h2 className="text-lg font-bold text-gray-800">{product.title}</h2>
-                  <p className="text-gray-600 text-sm line-clamp-2">{product.description}</p>
+                  <p className="text-black text-sm line-clamp-2">{product.description}</p>
 
                   {/* Price & Buttons */}
-                  <div className="flex justify-between items-center mt-4">
-                    <span className="text-xl font-bold text-blue-600">${product.price}</span>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-                      Add to Cart
+                  <div className="flex items-center mt-4 gap-[13px]">
+                    <span className="text-xl font-bold text-[#281E1F]">${product.price}</span>
+                    <button className="bg-[#E58F28] text-white px-4 py-2 rounded-full transition w-full">
+                      Buy Now
                     </button>
                   </div>
 
                   {/* View Details */}
                   <Link
                     href={`/product-details/${product.id}`}
-                    className="block mt-3 text-blue-500 text-sm hover:underline"
+                    className="block mt-3 text-[#E58F28] text-sm hover:underline w-full"
                   >
                     View Details →
                   </Link>
@@ -69,11 +69,11 @@ export default function Products({ products }) {
 
           {/* Pagination Component */}
           {totalPages > 1 && (
-            <Pagination 
-              totalItems={products.length} 
-              itemsPerPage={itemsPerPage} 
-              currentPage={validCurrentPage} 
-              onPageChange={setCurrentPage} 
+            <Pagination
+              totalItems={products.length}
+              itemsPerPage={itemsPerPage}
+              currentPage={validCurrentPage}
+              onPageChange={setCurrentPage}
             />
           )}
         </>

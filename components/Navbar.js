@@ -9,8 +9,7 @@ import { Bell, X, Menu } from "lucide-react";
 export default function Navbar() {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [showSidebar, setShowSidebar] = useState(false);
-  const [showNotifications, setShowNotifications] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   useEffect(() => {
     const accessToken = Cookies.get("accessToken");
@@ -28,86 +27,122 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-blue-600 text-white p-4 flex justify-between items-center sticky top-0 z-50 shadow-md">
-      {/* Sidebar (Opens on Hover) */}
-      <div
-        className="relative"
-        onMouseEnter={() => setShowSidebar(true)}
-        onMouseLeave={() => setShowSidebar(false)}
-      >
-        <Menu className="cursor-pointer text-white text-xl" />
+      <nav className="bg-black text-white p-4 flex justify-between items-center sticky top-0 z-50 shadow-md">
+        {/* Logo and Hamburger for Small Screens */}
+        <div className="flex items-center">
+          <Link href="/" className="text-xl font-bold mr-4">
+            E-Commerce
+          </Link>
 
-        <div
-          className={`absolute left-0 top-12 bg-white text-gray-800 w-56 p-4 rounded-lg shadow-lg transition-all duration-300 transform ${
-            showSidebar ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
-          }`}
-        >
-          <ul className="space-y-2">
-            <li>
-              <Link href="/" className="block p-2 hover:bg-gray-200 rounded">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link href="/product" className="block p-2 hover:bg-gray-200 rounded">
-                Products
-              </Link>
-            </li>
+          {/* Links for Large Screens */}
+          <div className="hidden sm:flex items-center space-x-6">
+            <Link href="/" className="hover:underline">
+              Home
+            </Link>
+            <span>|</span>
+            <Link href="/product" className="hover:underline">
+              Products
+            </Link>
             {isAuthenticated && (
-              <li>
-                <button onClick={handleLogout} className="w-full text-left p-2 hover:bg-gray-200 rounded">
-                  Logout
-                </button>
-              </li>
+                <>
+                  <span>|</span>
+                  <button onClick={handleLogout} className="hover:underline">
+                    Logout
+                  </button>
+                </>
             )}
-          </ul>
-        </div>
-      </div>
+          </div>
 
-      {/* Logo */}
-      <Link href="/" className="text-xl font-bold">E-Commerce</Link>
-
-      {/* Right Section (Notifications & Auth) */}
-      <div className="flex items-center space-x-4">
-        {/* Notification Bell */}
-        <div className="relative">
-          <button onClick={() => setShowNotifications(!showNotifications)}>
-            <Bell className="text-white w-6 h-6 cursor-pointer" />
+          {/* Hamburger Menu for Small Screens */}
+          <button
+              className="sm:hidden text-white ml-2 absolute  right-5"
+              onClick={() => setShowMobileMenu(!showMobileMenu)}
+          >
+            <Menu className="w-6 h-6" />
           </button>
+        </div>
 
-          {showNotifications && (
-            <div className="absolute right-0 mt-2 bg-white text-gray-800 w-64 p-4 rounded-lg shadow-lg">
-              <div className="flex justify-between items-center border-b pb-2">
-                <h3 className="font-semibold">Notifications</h3>
-                <button onClick={() => setShowNotifications(false)}>
-                  <X className="w-5 h-5 text-gray-600 hover:text-gray-800" />
-                </button>
-              </div>
-              <ul className="mt-2 space-y-2 text-sm">
-                <li className="p-2 bg-gray-100 rounded">New product launch 🚀</li>
-                <li className="p-2 bg-gray-100 rounded">Limited-time discounts 💰</li>
-                <li className="p-2 bg-gray-100 rounded">Order update 📦</li>
+        {/* Mobile Menu */}
+        {showMobileMenu && (
+            <div className="absolute top-14 left-0 w-full bg-black text-white sm:hidden shadow-lg animate-slide-down">
+              <ul className="flex flex-col items-center py-4 space-y-4">
+                <li className="w-full">
+                  <Link
+                      href="/"
+                      className="block py-2 w-full text-center hover:bg-gray-800 rounded transition-all duration-300"
+                  >
+                    Home
+                  </Link>
+                </li>
+                <li className="w-full">
+                  <Link
+                      href="/product"
+                      className="block py-2 w-full text-center hover:bg-gray-800 rounded transition-all duration-300"
+                  >
+                    Products
+                  </Link>
+                </li>
+                {isAuthenticated && (
+                    <li className="w-full">
+                      <button
+                          onClick={handleLogout}
+                          className="block py-2 w-full text-center hover:bg-gray-800 rounded transition-all duration-300"
+                      >
+                        Logout
+                      </button>
+                    </li>
+                )}
+                {!isAuthenticated && (
+                    <>
+                      <li className="w-full">
+                        <button
+                            onClick={handleLogin}
+                            className="bg-green-500 py-2 w-11/12 rounded hover:bg-green-700 transition-all duration-300 mx-auto block"
+                        >
+                          Login
+                        </button>
+                      </li>
+                      <li className="w-full">
+                        <Link
+                            href="/signup"
+                            className="bg-yellow-500 py-2 w-11/12 rounded hover:bg-yellow-600 transition-all duration-300 mx-auto block"
+                        >
+                          Signup
+                        </Link>
+                      </li>
+                    </>
+                )}
               </ul>
             </div>
+        )}
+
+
+        {/* Right Section (Auth Buttons for Large Screens) */}
+        <div className="hidden sm:flex items-center space-x-4">
+          {isAuthenticated ? (
+              <button
+                  onClick={handleLogout}
+                  className="bg-red-500 px-4 py-2 rounded hover:bg-red-700 transition"
+              >
+                Logout
+              </button>
+          ) : (
+              <>
+                <button
+                    onClick={handleLogin}
+                    className="bg-green-500 px-4 py-2 rounded hover:bg-green-700 transition"
+                >
+                  Login
+                </button>
+                <Link
+                    href="/signup"
+                    className="bg-yellow-500 px-4 py-2 rounded hover:bg-yellow-600 transition"
+                >
+                  Signup
+                </Link>
+              </>
           )}
         </div>
-
-        {/* Authentication Buttons */}
-        {isAuthenticated ? (
-          <button onClick={handleLogout} className="bg-red-500 px-4 py-2 rounded hover:bg-red-700 transition">
-            Logout
-          </button>
-        ) : (
-          <>
-            <button onClick={handleLogin} className="bg-green-500 px-4 py-2 rounded hover:bg-green-700 transition">
-              Login
-            </button>
-            <Link href="/signup" className="bg-yellow-500 px-4 py-2 rounded hover:bg-yellow-600 transition">
-              Signup
-            </Link>
-          </>
-        )}
-      </div>
-    </nav>
+      </nav>
   );
 }

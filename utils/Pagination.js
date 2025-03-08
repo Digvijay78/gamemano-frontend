@@ -12,7 +12,7 @@ export default function Pagination({ totalItems, itemsPerPage = 10, currentPage,
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className={`px-4 py-2 rounded-md ${currentPage === 1 ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600 text-white"}`}
+        className={`px-4 py-2 rounded-md ${currentPage === 1 ? "bg-[#E5B981] cursor-not-allowed" : "bg-[#E58F28] hover:bg-[#D29F6E] text-white cursor-pointer"}`}
       >
         Prev
       </button>
@@ -22,7 +22,7 @@ export default function Pagination({ totalItems, itemsPerPage = 10, currentPage,
         <button
           key={index + 1}
           onClick={() => onPageChange(index + 1)}
-          className={`px-4 py-2 rounded-md ${currentPage === index + 1 ? "bg-blue-700 text-white" : "bg-gray-200 hover:bg-gray-300"}`}
+          className={`px-4 py-2 cursor-pointer rounded-md ${currentPage === index + 1 ? "bg-[#E58F28] text-white" : "bg-[#C48A5A] hover:bg-[#D29F6E] cursor-pointer"}`}
         >
           {index + 1}
         </button>
@@ -32,7 +32,7 @@ export default function Pagination({ totalItems, itemsPerPage = 10, currentPage,
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className={`px-4 py-2 rounded-md ${currentPage === totalPages ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600 text-white"}`}
+        className={`px-4  py-2 rounded-md ${currentPage === totalPages ? "bg-[#E5B981] cursor-not-allowed" : "bg-[#C48A5A] hover:bg-[#D29F6E] text-white cursor-pointer"}`}
       >
         Next
       </button>
