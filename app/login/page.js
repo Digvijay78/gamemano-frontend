@@ -42,23 +42,29 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="p-6 bg-white shadow-lg rounded-lg">
-        <h1 className="text-2xl font-bold mb-4">Login</h1>
-        <input
-          className="border p-2 my-2 w-full rounded"
-          placeholder="Username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          className="border p-2 my-2 w-full rounded"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button className="bg-blue-600 text-white px-4 py-2 rounded w-full mt-2" onClick={() => login(username, password)}>
-          Login
-        </button>
+    <div className="flex items-center justify-center h-screen bg-black">
+      <div className="bg-[#1e1e1e] text-white p-8 rounded-2xl shadow-xl w-96">
+        <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
+
+        <div className="space-y-4">
+          <input
+            className="w-full bg-[#2a2a2a] text-white px-4 py-3 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"
+            placeholder="Username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="password"
+            className="w-full bg-[#2a2a2a] text-white px-4 py-3 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button
+            className="w-full bg-[var(--color-amber-500)] text-black font-bold px-4 py-3 rounded-lg hover:opacity-90 transition"
+            onClick={() => login(username, password)}
+          >
+            Login
+          </button>
+        </div>
       </div>
     </div>
   );

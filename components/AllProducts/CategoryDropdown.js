@@ -50,7 +50,7 @@ export default function CategoryDropdown({ onSelectCategory , selectedCategory }
 
   return (
     <div className="max-w-md mx-auto mt-6">
-      <label className="block text-sm font-medium text-gray-700 mb-1">
+      <label className="block text-sm font-medium text-white mb-1">
         Select a Category:
       </label>
 
@@ -60,7 +60,7 @@ export default function CategoryDropdown({ onSelectCategory , selectedCategory }
         <select
           value={selectedCategory}
           onChange={handleChange}
-          className="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full p-2 border border-white text-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           <option value="">-- Choose a Category --</option>
           {categories.map((category) => (

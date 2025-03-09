@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Home, BarChart2, Mail, FileText, Grid, Settings, HelpCircle } from "lucide-react"
+import { Home, BarChart2, Package, FileText, Grid, Settings, HelpCircle } from "lucide-react"
 
 export default function Sidebar() {
   return (
@@ -12,8 +12,8 @@ export default function Sidebar() {
         <Link href="/" className="p-2 text-white hover:text-amber-500">
           <Home className="h-5 w-5" />
         </Link>
-        <Link href="/mail" className="p-2 text-gray-500 hover:text-amber-500">
-          <Mail className="h-5 w-5" />
+        <Link href="/product" className="p-2 text-gray-500 hover:text-amber-500">
+          <Package className="h-5 w-5" />
         </Link>
         <Link href="/files" className="p-2 text-gray-500 hover:text-amber-500">
           <FileText className="h-5 w-5" />
