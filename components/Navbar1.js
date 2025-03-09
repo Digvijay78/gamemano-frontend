@@ -4,13 +4,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
-import { Search, Bell, User, Gamepad2, X } from "lucide-react";
+import { Search, Bell, User, Gamepad2, X, Menu } from "lucide-react";
 
 export default function Navbar1() {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const notifications = [
     { id: 1, message: "Alex challenged you to a battle!", sender: "Alex" },
@@ -47,8 +48,16 @@ export default function Navbar1() {
 
   return (
     <header className="flex items-center justify-between p-4 border-b border-gray-800 bg-[#121212] relative">
-      {/* Left Section: Navigation */}
+      {/* Left Section: Navigation (Desktop) */}
       <div className="flex items-center gap-8">
+        {/* Sidebar Toggle for Mobile */}
+        <button
+          className="md:hidden text-white"
+          onClick={() => setShowSidebar(true)}
+        >
+          <Menu className="h-6 w-6" />
+        </button>
+
         <nav className="hidden md:flex gap-6">
           <Link href="/" className="text-white hover:text-amber-500">
             Home
@@ -64,8 +73,8 @@ export default function Navbar1() {
 
       {/* Right Section: Search, Notification & Auth */}
       <div className="flex items-center gap-4 relative">
-        {/* Search Bar (Moved Right) */}
-        <div className="relative w-80">
+        {/* Search Bar */}
+        <div className="relative w-80 hidden md:block">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
           <input
             type="text"
@@ -153,6 +162,34 @@ export default function Navbar1() {
           )}
         </div>
       </div>
+
+      {/* Sidebar for Mobile */}
+      {showSidebar && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
+          <div className="w-64 bg-[#1e1e1e] h-full p-5 shadow-lg">
+            {/* Close Button */}
+            <button
+              className="text-white absolute top-4 right-4"
+              onClick={() => setShowSidebar(false)}
+            >
+              <X className="h-6 w-6" />
+            </button>
+
+            {/* Sidebar Links */}
+            <nav className="flex flex-col gap-4 mt-8">
+              <Link href="/" className="text-white hover:text-amber-500" onClick={() => setShowSidebar(false)}>
+                Home
+              </Link>
+              <Link href="/product" className="text-white hover:text-amber-500" onClick={() => setShowSidebar(false)}>
+                Products
+              </Link>
+              <Link href="/leaderboard" className="text-white hover:text-amber-500" onClick={() => setShowSidebar(false)}>
+                Leaderboard
+              </Link>
+            </nav>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

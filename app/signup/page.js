@@ -32,27 +32,30 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-2xl font-bold">Sign Up</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-black">
+    <div className="p-6 bg-white shadow-lg rounded-lg w-96">
+      <h1 className="text-2xl font-bold text-center mb-4">Sign Up</h1>
       <input
-        className="border p-2 my-2 w-64"
+        className="border border-gray-300 p-2 my-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-amber-500"
         placeholder="Username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
       <input
         type="password"
-        className="border p-2 my-2 w-64"
+        className="border border-gray-300 p-2 my-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-amber-500"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       <button
-        className="bg-green-600 text-white px-4 py-2 rounded mt-2"
+        className="bg-[var(--color-amber-500)] text-white px-4 py-2 rounded w-full mt-2 font-semibold hover:bg-amber-600 transition-all"
         onClick={handleSignup}
       >
         Sign Up
       </button>
     </div>
+  </div>
+  
   );
 }

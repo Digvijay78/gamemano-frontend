@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, Link } from "lucide-react"; // Importing a back arrow icon
 import Loading from "@/utils/Loading";
 import { Search, Bell, User, Star, Heart, ShoppingCart, ChevronLeft } from "lucide-react"
+import TrendingGames from "@/components/TrendingGames";
 
 export default function ProductDetails() {
   const [product, setProduct] = useState(null);
@@ -83,7 +84,7 @@ export default function ProductDetails() {
         </button>
         
         <div className="py-6 px-8">
-            <div className="grid md:grid-cols-2 gap-12">
+            <div className="grid md:grid-cols-2 gap-12 mb-5">
               {/* Product Images */}
               <div>
                 <div className="bg-[#1e1e1e] rounded-lg overflow-hidden mb-4">
@@ -207,36 +208,10 @@ export default function ProductDetails() {
             </div>
 
             {/* Related Products Section */}
-            <div className="mt-16">
-              <h2 className="text-2xl font-bold text-amber-500 mb-6 font-mono tracking-wider">RELATED GAMES</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {[...Array(4)].map((_, index) => (
-                  <div key={index} className="bg-[#f5e9c6] rounded-lg overflow-hidden">
-                    <div className="p-2">
-                      <span className="text-xs bg-gray-800 text-white px-2 py-0.5 rounded">Best Seller</span>
-                    </div>
-                    <div className="p-4 pt-16">
-                      <h3 className="text-lg font-bold text-gray-900 mb-2">Related Game {index + 1}</h3>
-                      <div className="flex flex-wrap gap-1 mb-2">
-                        <span className="text-xs text-gray-700">RPG</span>
-                        <span className="text-xs text-gray-700"> • Action</span>
-                        <span className="text-xs text-gray-700"> • Adventure</span>
-                      </div>
-                      <p className="text-xs text-gray-600 mb-4">Released 10th August 2022</p>
-                      <div className="flex justify-between items-center">
-                        <span className="font-bold text-gray-900">$48</span>
-                        <Link
-                          href="/buy-now"
-                          className="px-4 py-1 bg-amber-500 text-black text-sm font-medium rounded-full"
-                        >
-                          Buy Now
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          
+
+                <TrendingGames />
+             
           </div>
 
 
