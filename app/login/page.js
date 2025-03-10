@@ -2,8 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import CryptoJS from "crypto-js";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
+
+// Dynamically import CryptoJS to prevent SSR issues
+const CryptoJS = dynamic(() => import("crypto-js"), { ssr: false });
 
 const SECRET_KEY = process.env.NEXT_PUBLIC_SECRET_KEY || "default_secret_key";
 
@@ -12,15 +15,19 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  // Check if user is already logged in via cookies
   useEffect(() => {
     const encryptedAccess = Cookies.get("accessToken");
 
     if (encryptedAccess) {
-      const decryptedAccess = CryptoJS.AES.decrypt(encryptedAccess, SECRET_KEY).toString(CryptoJS.enc.Utf8);
+      try {
+        const decryptedBytes = CryptoJS.AES.decrypt(encryptedAccess, SECRET_KEY);
+        const decryptedAccess = decryptedBytes.toString(CryptoJS.enc.Utf8);
 
-      if (decryptedAccess) {
-        router.push("/product"); 
+        if (decryptedAccess) {
+          router.push("/product"); 
+        }
+      } catch (error) {
+        console.error("Error decrypting accessToken:", error);
       }
     }
   }, []);
@@ -29,15 +36,21 @@ export default function Login() {
     return CryptoJS.AES.encrypt(`${username}_${password}`, SECRET_KEY).toString();
   };
 
-  const login = (username, password) => {
+  const login = () => {
     if (!username || !password) {
       alert("Please enter both username and password.");
       return;
     }
 
     const accessToken = generateAccessToken(username, password);
-    localStorage.setItem("accessToken", accessToken);
+
+    // Ensure localStorage is only accessed on the client
+    if (typeof window !== "undefined") {
+      localStorage.setItem("accessToken", accessToken);
+    }
+
     Cookies.set("accessToken", accessToken, { expires: 7, secure: true });
+
     router.push("/product"); // Redirect after login
   };
 
@@ -50,17 +63,19 @@ export default function Login() {
           <input
             className="w-full bg-[#2a2a2a] text-white px-4 py-3 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"
             placeholder="Username"
+            value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <input
             type="password"
             className="w-full bg-[#2a2a2a] text-white px-4 py-3 rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"
             placeholder="Password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <button
-            className="w-full bg-[var(--color-amber-500)] text-black font-bold px-4 py-3 rounded-lg hover:opacity-90 transition"
-            onClick={() => login(username, password)}
+            className="w-full bg-amber-500 text-black font-bold px-4 py-3 rounded-lg hover:opacity-90 transition"
+            onClick={login}
           >
             Login
           </button>

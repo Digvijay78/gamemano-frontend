@@ -1,11 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import CategoryDropdown from "@/components/AllProducts/CategoryDropdown";
 import Products from "@/components/AllProducts/Products";
-import { getProducts } from "@/services/productService"; // Import API call function
+import { getProducts } from "@/services/productService";
 
-export default function Product() {
+function ProductContent() {
   const searchParams = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [products, setProducts] = useState([]);
@@ -39,13 +39,19 @@ export default function Product() {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      {/* <h1 className="text-2xl font-bold">Product List</h1> */}
-
       {/* Category Dropdown */}
       <CategoryDropdown onSelectCategory={setSelectedCategory} selectedCategory={selectedCategory} />
 
       {/* Pass fetched products to Products component */}
       <Products products={products} loading={loading} />
     </div>
+  );
+}
+
+export default function Product() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProductContent />
+    </Suspense>
   );
 }
