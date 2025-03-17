@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 
-// Dynamically import CryptoJS to prevent SSR issues
+
 const CryptoJS = dynamic(() => import("crypto-js"), { ssr: false });
 
 const SECRET_KEY = process.env.NEXT_PUBLIC_SECRET_KEY || "default_secret_key";
@@ -44,14 +44,14 @@ export default function Login() {
 
     const accessToken = generateAccessToken(username, password);
 
-    // Ensure localStorage is only accessed on the client
+   
     if (typeof window !== "undefined") {
       localStorage.setItem("accessToken", accessToken);
     }
 
     Cookies.set("accessToken", accessToken, { expires: 7, secure: true });
 
-    router.push("/product"); // Redirect after login
+    router.push("/product"); 
   };
 
   return (

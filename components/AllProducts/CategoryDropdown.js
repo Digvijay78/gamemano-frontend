@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation"; // Import router & params
+import { useSearchParams, useRouter } from "next/navigation"; 
 import Loading from "@/utils/Loading";
 
 export default function CategoryDropdown({ onSelectCategory , selectedCategory }) {
   const [categories, setCategories] = useState([]);
-//   const [selectedCategory, setSelectedCategory] = useState("");
+
   
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -18,7 +18,7 @@ export default function CategoryDropdown({ onSelectCategory , selectedCategory }
         
         if (Array.isArray(data)) {
             
-          setCategories(data); // Ensure categories is an array
+          setCategories(data); 
         }
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -31,20 +31,20 @@ export default function CategoryDropdown({ onSelectCategory , selectedCategory }
   
 
   useEffect(() => {
-    // Set category from URL if available
+   
     const categoryFromUrl = searchParams.get("category");
     if (categoryFromUrl) {
-    //   setSelectedCategory(categoryFromUrl);
+   
       onSelectCategory(categoryFromUrl);
     }
   }, [searchParams, onSelectCategory]);
 
   const handleChange = (event) => {
     const category = event.target.value;
-    // setSelectedCategory(category);
+
     onSelectCategory(category);
 
-    // Update URL with selected category
+
     router.push(`/product?category=${category}`, { scroll: false });
   };
 

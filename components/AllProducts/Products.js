@@ -8,13 +8,13 @@ export default function Products({ products }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Calculate the total number of pages
+  
   const totalPages = Math.ceil(products.length / itemsPerPage);
 
-  // Ensure current page is within valid range
+
   const validCurrentPage = Math.min(currentPage, totalPages);
 
-  // Calculate the correct slice of products to display
+
   const startIndex = (validCurrentPage - 1) * itemsPerPage;
   const currentProducts = products.slice(startIndex, startIndex + itemsPerPage);
 
@@ -30,7 +30,7 @@ export default function Products({ products }) {
                 key={product.id}
                 className="p-5 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-[#FEF3BC]"
               >
-                {/* Product Image */}
+           
                 <div className="relative">
                   <img
                     src={product.thumbnail}

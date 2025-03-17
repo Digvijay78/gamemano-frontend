@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className="h-full bg-black">
       <body className="h-full bg-black text-white">
         <div className="flex flex-col md:flex-row min-h-screen">
-          {/* Sidebar - Hidden on small screens */}
+        
           <aside className="hidden md:block">
             <Sidebar />
           </aside>

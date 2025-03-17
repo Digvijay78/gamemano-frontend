@@ -1,7 +1,7 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ArrowLeft, Link } from "lucide-react"; // Importing a back arrow icon
+import { ArrowLeft, Link } from "lucide-react"; 
 import Loading from "@/utils/Loading";
 import { Search, Bell, User, Star, Heart, ShoppingCart, ChevronLeft } from "lucide-react"
 import TrendingGames from "@/components/TrendingGames";
@@ -10,7 +10,7 @@ export default function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
   const { slug } = useParams();
-  const router = useRouter(); // Get router instance
+  const router = useRouter(); 
   const [quantity, setQuantity] = useState(1)
   const [inWishlist, setInWishlist] = useState(false)
 
@@ -77,7 +77,7 @@ export default function ProductDetails() {
         {/* Back Button */}
         <button
         className="flex items-center text-gray-700 hover:text-gray-900 absolute top-4 left-4"
-        onClick={() => router.back()} // Go to previous page
+        onClick={() => router.back()} 
         >
         <ArrowLeft className="w-5 h-5 mr-2 bg-white" />
         <span className="bg-white" >Back</span>
@@ -85,7 +85,7 @@ export default function ProductDetails() {
         
         <div className="py-6 px-8">
             <div className="grid md:grid-cols-2 gap-12 mb-5">
-              {/* Product Images */}
+            
               <div>
                 <div className="bg-[#1e1e1e] rounded-lg overflow-hidden mb-4">
                   <img
@@ -148,7 +148,7 @@ export default function ProductDetails() {
                   )}
                 </div>
 
-                {/* Quantity Selector */}
+              
                 <div className="mb-8">
                   <label className="block text-white mb-2">Quantity</label>
                   <div className="flex items-center">
@@ -207,7 +207,7 @@ export default function ProductDetails() {
               </div>
             </div>
 
-            {/* Related Products Section */}
+           
           
 
                 <TrendingGames />

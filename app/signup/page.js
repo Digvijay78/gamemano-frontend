@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import dynamic from "next/dynamic";
 
-// Import CryptoJS dynamically (only on the client-side)
+
 const CryptoJS = dynamic(() => import("crypto-js"), { ssr: false });
 
 const SECRET_KEY = process.env.NEXT_PUBLIC_SECRET_KEY || "default_secret_key";
@@ -27,7 +27,7 @@ export default function Signup() {
 
     const accessToken = generateAccessToken(username, password);
 
-    // Ensure localStorage is only accessed on the client side
+   
     if (typeof window !== "undefined") {
       localStorage.setItem("accessToken", accessToken);
     }

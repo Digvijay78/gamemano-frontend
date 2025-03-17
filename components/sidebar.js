@@ -59,7 +59,7 @@ function NavItem({ href, icon, label }) {
   return (
     <Link href={href} className="p-2 text-gray-500 hover:text-amber-500 transition-colors">
       <div className="h-6 w-6">{icon}</div>
-      <span className="sr-only">{label}</span> {/* Accessible label for screen readers */}
+      <span className="sr-only">{label}</span> 
     </Link>
   );
 }

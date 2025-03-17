@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
-// import GameCard from "@/components/game-card"; // Adjust path as per your project structure
-import GameDetail from "@/components/game-detail"; // Adjust path as needed
+
+
+import GameDetail from "@/components/game-detail";
 
 
 import TrendingGames from "@/components/TrendingGames";
@@ -47,22 +47,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trending Games Section */}
-      {/* <section className="py-8 px-8 bg-[#1a1509]">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-amber-500 font-mono tracking-wider">MOST TRENDING</h2>
-          <Link href="/game-store" className="text-amber-500 flex items-center hover:underline">
-            GO TO GAME STORE <ChevronRight className="h-4 w-4" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <GameCard title="World of Warcraft" tags={["RPG", "Action", "Adventure"]} releaseDate="Released 10th August 2022" price="$48" />
-          <GameCard title="The Witcher" tags={["RPG", "Action", "Adventure"]} releaseDate="Released 10th August 2022" price="$48" />
-          <GameCard title="Horizon" tags={["RPG", "Action", "Adventure"]} releaseDate="Released 10th August 2022" price="$48" />
-          <GameCard title="Valorant" tags={["FPS", "Action", "Shooter"]} releaseDate="Released 10th August 2022" price="$48" />
-        </div>
-      </section> */}
+    
 
       <TrendingGames />
 
